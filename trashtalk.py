@@ -1,8 +1,11 @@
 import random
 
-nouns = ["team","bracket","code","github account"]
+nouns = ["team","bracket","code","github account",
+        "database","algorithm"]
 
-adjectives = ["stinky","small","hackable"]
+adjectives = ["stinky","small","hackable",
+                "dastardly","Machiavellian",
+                "irresponsible"]
 
 noun = random.choice(nouns)
 adj = random.choice(adjectives)
