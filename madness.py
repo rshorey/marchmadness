@@ -38,49 +38,48 @@ def play(team1, team2):
         return team1
     return team2
 
-divisions = {"MW":["Kentucky","Kansas","Notre Dame",
-    "Maryland","West Virginia",
-    "Butler","Wichita","Cincinnati",
-    "Purdue","Indiana","Texas",
-    "Buffalo","Valparaiso","Northeastern",
-    "New Mexico","playin-mw"],
+divisions = {"MW":["Virginia","Michigan State","Utah",
+    "Iowa State","Purdue","Seton Hall","Dayton",
+    "Texas Tech", "Butler","Syracuse","Gonzaga",
+    "Little Rock", "Iona", "Fresno", "Tennessee", "Hampton"],
 
-"E":["Villanova","Virginia","Oklahoma",
-    "Louisville","Iowa","Providence",
-    "Michigan State","NC State","LSU","UGA",
-    "playin-e","Wyoming","Irvine",
-    "Alabama","Belmont","Lafayette"],
+"E":["North Carolina", "Xavier", "West Virginia",
+    "Kentucky", "Indiana", "Notre Dame", "Wisconsin",
+    "USC", "Providence", "Pittsburgh", "playin-e1",
+    "Chattanooga","Stony Brook","Stephen Austin",
+    "Weber", "playin-e2"],
 
-"W":["Wisconsin","Arizona","Baylor",
-    "UNC","Arkansas","Xavier",
-    "VCU","Oregon","Oklahoma State",
-    "Ohio","playin-w",
-    "Wofford","Harvard","Georgia State",
-    "Texas Southern","Costal Carolina"],
+"W":["Oregon","Oklahoma","Texas A&M","Duke",
+    "Baylor","Texas","Oregon State","St. Joseph's",
+    "Cincinnati", "VCU", "UNI", "Yale",
+    "Wilmington", "Green Bay", "Bakersfield", "playin-w"],
 
-"S":["Duke","Gonzaga","Iowa State","Georgetown",
-    "Utah","Methodist","Iowa",
-    "San Diego","St John","Davidson",
-    "UCLA","Austin","Washington",
-    "UAB","North Dakota","playin-s"]
+"S":["Kansas","Villanova","Miami","California",
+    "Maryland","Arizona","Iowa","Colorado","Connecticut",
+    "Temple","playin-s","South Dakota","Hawaii",
+    "Buffalo", "Asheville", "Austin Peay"]
 }
 
-base_url = "https://www.google.com/search?client=ubuntu&channel=fs&q=%22march+madness+2015%22+"
 
-playins = {"playin-w":["BYU","Ole Miss"],
-            "playin-s":["Hampton","Manhattan"],
-            "playin-e":["Boise","Dayton"],
-            "playin-mw":["New Hampshire","NJIT"]}
+base_url = "https://www.google.com/search?client=ubuntu&channel=fs&q=%22march+madness+2016%22+"
+
+playins = {"playin-w":["Holy Cross","Southern"],
+            "playin-s":["Vanderbilt","Wichita"],
+            "playin-e1":["Michigan","Tulsa"],
+            "playin-e2":["FGCU","Fairleigh"]}
 
 #this is for teams that contain another team in their name
 #we'll exclude the part that is in the other team's name
 #for example, we exclude "state" for plain old Iowa
 #to avoid getting Iowa State's results
 minuses = {"Iowa":"State",
-            "Georgia":"State",
-            "Texas":"Southern",
-            "Oklahoma":"State"}
-
+            "Michigan":"State",
+            "Virginia":"West",
+            "Oregon":"State",
+            "North Carolina":"Asheville+Wilmington",
+            "California":"Bakersfield+Fresno",
+            "Texas":"Tech+A&M"
+            }
 
 mention_count = {}
 for div,teams in divisions.items():
@@ -88,7 +87,7 @@ for div,teams in divisions.items():
         if team in playins:
             team1 = playins[team][0]
             team2 = playins[team][1]
-        
+            
             r = requests.get(base_url+"%22"+team1+"%22")
             soup = BeautifulSoup(r.text)
             d = soup.find("div", {"id": "resultStats"})
@@ -100,23 +99,25 @@ for div,teams in divisions.items():
             count2 = int(d.text.replace("About","").replace("results","").replace(",","").strip())
             
             mention_count[team] = (count1+count2)/2.0
-
+            
         else:
             if team in minuses:
+                print base_url+"%22"+team+"%22"+"+-"+minuses[team]
                 r = requests.get(base_url+"%22"+team+"%22"+"+-"+minuses[team])
+            
             else:
                 r = requests.get(base_url+"%22"+team+"%22")
             soup = BeautifulSoup(r.text)
             d = soup.find("div", {"id": "resultStats"})
             count = int(d.text.replace("About","").replace("results","").replace(",","").strip())
             mention_count[team] = count
-
+            
 
         time.sleep(random.randint(1,3))
 
 
+#mention_count = {'Michigan State': 51100, 'USC': 27600, 'Oklahoma': 73800, "St. Joseph's": 2440, 'Providence': 23100, 'Villanova': 23500, 'UNI': 40900, 'Butler': 69800, 'Indiana': 97900, 'Maryland': 99800, 'playin-e2': 4475.0, 'Temple': 73400, 'Weber': 42600, 'Stony Brook': 14000, 'Iowa': 31100, 'Arizona': 127000, 'Wisconsin': 85000, 'Dayton': 34100, 'Pittsburgh': 62000, 'Oregon State': 10400, 'Kansas': 124000, 'Utah': 69500, 'Virginia': 116000, 'Oregon': 67500, 'Iowa State': 13000, 'Connecticut': 71000, 'Iona': 5440, 'California': 9270, 'Texas': 251000, 'West Virginia': 55500, 'Syracuse': 39000, 'Green Bay': 31700, 'Bakersfield': 8720, 'Chattanooga': 9350, 'Purdue': 29400, 'Miami': 120000, 'Wilmington': 8540, 'Asheville': 7980, 'Little Rock': 8160, 'Hawaii': 118000, 'Kentucky': 97700, 'Baylor': 17300, 'Austin Peay': 2510, 'VCU': 8930, 'Yale': 46000, 'Xavier': 23100, 'Buffalo': 81600, 'Notre Dame': 29200, 'Duke': 107000, 'Stephen Austin': 128, 'Hampton': 32700, 'South Dakota': 19400, 'Cincinnati': 48300, 'Colorado': 142000, 'playin-s': 16400.0, 'Fresno': 18000, 'Seton Hall': 20900, 'playin-e1': 93900.0, 'North Carolina': 89500, 'playin-w': 116775.0, 'Tennessee': 90000, 'Texas A&M': 284000, 'Gonzaga': 8570, 'Texas Tech': 17000}
 
-print mention_count
 
 
 #up to final four
