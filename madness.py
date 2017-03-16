@@ -38,49 +38,51 @@ def play(team1, team2):
         return team1
     return team2
 
-divisions = {"MW":["Virginia","Michigan State","Utah",
-    "Iowa State","Purdue","Seton Hall","Dayton",
-    "Texas Tech", "Butler","Syracuse","Gonzaga",
-    "Little Rock", "Iona", "Fresno", "Tennessee", "Hampton"],
+divisions = {"MW":["Kansas","Louisville","Oregon",
+    "Purdue","Iowa State","Creighton","Michigan",
+    "Miami", "Michigan State","Oklahoma State","Rhode Island",
+    "Nevada", "Vermont", "Iona", "Jacksonville", "playin-mw"],
 
-"E":["North Carolina", "Xavier", "West Virginia",
-    "Kentucky", "Indiana", "Notre Dame", "Wisconsin",
-    "USC", "Providence", "Pittsburgh", "playin-e1",
-    "Chattanooga","Stony Brook","Stephen Austin",
-    "Weber", "playin-e2"],
+"E":["Villanova", "Duke", "Baylor",
+    "Florida", "Virginia", "SMU", "South Carolina",
+    "Wisconsin", "Virginia Tech", "Marquette","playin-e1", "Wilmington",
+    "East Tennessee","New Mexico State","Troy",
+    "playin-e2", "playin-e2"],
 
-"W":["Oregon","Oklahoma","Texas A&M","Duke",
-    "Baylor","Texas","Oregon State","St. Joseph's",
-    "Cincinnati", "VCU", "UNI", "Yale",
-    "Wilmington", "Green Bay", "Bakersfield", "playin-w"],
+"W":["Gonzaga","Arizona","Florida State","West Virginia",
+    "Notre Dame","Maryland","St. Mary's","Northwestern",
+    "Vanderbilt", "VCU", "Xavier", "Princeton",
+    "Bucknell", "Gulf Coast", "North Dakota", "South Dakota"],
 
-"S":["Kansas","Villanova","Miami","California",
-    "Maryland","Arizona","Iowa","Colorado","Connecticut",
-    "Temple","playin-s","South Dakota","Hawaii",
-    "Buffalo", "Asheville", "Austin Peay"]
+"S":["UNC","Kentucky","UCLA","Butler",
+    "Minnesota","Cincinnati","Dayton","Arkansas","Seton Hall",
+    "Wichita","playin-s","Middle Tennessee","Winthrop",
+    "Kent State", "Northern Kentucky", "Texas Southern"]
 }
 
 
-base_url = "https://www.google.com/search?client=ubuntu&channel=fs&q=%22march+madness+2016%22+"
+base_url = "https://www.google.com/search?client=ubuntu&channel=fs&q=%22march+madness+2017%22+"
 
-playins = {"playin-w":["Holy Cross","Southern"],
-            "playin-s":["Vanderbilt","Wichita"],
-            "playin-e1":["Michigan","Tulsa"],
-            "playin-e2":["FGCU","Fairleigh"]}
+playins = {"playin-mw":["NC Central","UC Davis"],
+            "playin-s":["Kansas State","Wake Forest"],
+            "playin-e1":["Providence","USC"],
+            "playin-e2":["Mount St. Mary","New Orleans"]}
 
 #this is for teams that contain another team in their name
 #we'll exclude the part that is in the other team's name
 #for example, we exclude "state" for plain old Iowa
 #to avoid getting Iowa State's results
-minuses = {"Iowa":"State",
+minuses = {
             "Michigan":"State",
-            "Virginia":"West",
-            "Oregon":"State",
-            "North Carolina":"Asheville+Wilmington",
-            "California":"Bakersfield+Fresno",
-            "Texas":"Tech+A&M"
+            "Virginia":"Tech+West",
+            "Florida":"Gulf",
+            "Tennessee":"East+Middle",
+            "Kentucky":"Northern",
+            "Texas":"Southern",
+            "Florida":"State",
+            "Kansas":"State",
             }
-
+"""
 mention_count = {}
 for div,teams in divisions.items():
     for team in teams:
@@ -115,9 +117,9 @@ for div,teams in divisions.items():
 
         time.sleep(random.randint(1,3))
 
-
-#mention_count = {'Michigan State': 51100, 'USC': 27600, 'Oklahoma': 73800, "St. Joseph's": 2440, 'Providence': 23100, 'Villanova': 23500, 'UNI': 40900, 'Butler': 69800, 'Indiana': 97900, 'Maryland': 99800, 'playin-e2': 4475.0, 'Temple': 73400, 'Weber': 42600, 'Stony Brook': 14000, 'Iowa': 31100, 'Arizona': 127000, 'Wisconsin': 85000, 'Dayton': 34100, 'Pittsburgh': 62000, 'Oregon State': 10400, 'Kansas': 124000, 'Utah': 69500, 'Virginia': 116000, 'Oregon': 67500, 'Iowa State': 13000, 'Connecticut': 71000, 'Iona': 5440, 'California': 9270, 'Texas': 251000, 'West Virginia': 55500, 'Syracuse': 39000, 'Green Bay': 31700, 'Bakersfield': 8720, 'Chattanooga': 9350, 'Purdue': 29400, 'Miami': 120000, 'Wilmington': 8540, 'Asheville': 7980, 'Little Rock': 8160, 'Hawaii': 118000, 'Kentucky': 97700, 'Baylor': 17300, 'Austin Peay': 2510, 'VCU': 8930, 'Yale': 46000, 'Xavier': 23100, 'Buffalo': 81600, 'Notre Dame': 29200, 'Duke': 107000, 'Stephen Austin': 128, 'Hampton': 32700, 'South Dakota': 19400, 'Cincinnati': 48300, 'Colorado': 142000, 'playin-s': 16400.0, 'Fresno': 18000, 'Seton Hall': 20900, 'playin-e1': 93900.0, 'North Carolina': 89500, 'playin-w': 116775.0, 'Tennessee': 90000, 'Texas A&M': 284000, 'Gonzaga': 8570, 'Texas Tech': 17000}
-
+print mention_count
+"""
+mention_count = {'Princeton': 10200, 'Michigan State': 15500, 'East Tennessee': 5660, 'SMU': 12300, 'Minnesota': 59700, 'Middle Tennessee': 7690, 'Louisville': 21700, 'Villanova': 62700, 'Arkansas': 28800, 'Vanderbilt': 18200, 'Xavier': 9890, 'Butler': 19500, 'Maryland': 71100, 'playin-s': 13700.0, 'Gulf Coast': 6240, 'Bucknell': 4420, 'Oklahoma State': 8410, 'Wisconsin': 64200, 'Arizona': 104000, 'playin-e1': 19600.0, 'Michigan': 58500, 'Kansas': 43500, 'Wilmington': 7670, 'Virginia': 12100, 'Oregon': 36400, 'Notre Dame': 33400, 'Florida State': 13800, 'West Virginia': 21100, 'South Carolina': 21100, 'Northern Kentucky': 4110, 'Jacksonville': 22800, 'Northwestern': 50100, 'Vermont': 13500, 'North Dakota': 7190, 'Wichita': 13800, 'Purdue': 14700, 'Miami': 82700, 'playin-mw': 5715.0, 'Florida': 16700, 'Kentucky': 36000, 'Rhode Island': 14000, 'Baylor': 15300, 'UNC': 44500, "St. Mary's": 9030, 'Kent State': 7300, 'New Mexico State': 2910, 'playin-e2': 26330.0, 'South Dakota': 5150, 'Iowa State': 21600, 'Creighton': 13200, 'Duke': 96400, 'Texas Southern': 4800, 'Cincinnati': 28800, 'Winthrop': 7630, 'Seton Hall': 10000, 'Dayton': 14400, 'UCLA': 98400, 'Troy': 17300, 'Iona': 5620, 'Gonzaga': 52500, 'Marquette': 10200, 'Nevada': 13000, 'Virginia Tech': 11300, 'VCU': 16400}
 
 
 #up to final four
